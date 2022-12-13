@@ -1,8 +1,10 @@
 fn main() {
     
-    let mut running_total = 0;
-    let mut max = 0;
+    // let mut running_total = 0;
+    // let mut max = 0;
 
+    let mut total_per_elf : Vec<u32> = Vec::new();
+    let mut running_total = 0;
 
     println!("Please start inputting calorific inventory, use a blank line to signify you are done.");
 
@@ -16,10 +18,7 @@ fn main() {
                 break;
             }
 
-            if running_total > max {
-                max = running_total;
-            }
-
+            total_per_elf.push(running_total);
             running_total = 0;
             skipped_last = true;
 
@@ -34,5 +33,16 @@ fn main() {
         running_total += value;
     }
 
-    println!("Thanks! The current max calories is {}.", max);
+    total_per_elf.sort();
+
+    let mut sum = 0;
+    for n in 1..=3 {
+        let value = total_per_elf.pop().unwrap();
+        sum += value;
+
+        println!("At position {} is, {} calories.", n, value);
+    }
+    println!("The grand total is, {}!", sum);
+
+    println!("Thanks!");
 }
